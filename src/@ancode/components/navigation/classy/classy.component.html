@@ -1,0 +1,80 @@
+<div class="ancode-navigation-wrapper">
+
+    <!-- Header -->
+    <div class="ancode-navigation-header">
+        <ng-content select="[ancodeNavigationHeader]"></ng-content>
+    </div>
+
+    <!-- Content -->
+    <div
+        class="ancode-navigation-content"
+        ancodeScrollbar
+        [ancodeScrollbarOptions]="{wheelPropagation: inner, suppressScrollX: true}"
+        #navigationContent>
+
+        <!-- Content header -->
+        <div class="ancode-navigation-content-header">
+            <ng-content select="[ancodeNavigationContentHeader]"></ng-content>
+        </div>
+
+        <!-- Items -->
+        <ng-container *ngFor="let item of navigation; trackBy: trackByFn">
+
+            <!-- Skip the hidden items -->
+            <ng-container *ngIf="(item.hidden && !item.hidden(item)) || !item.hidden">
+
+                <!-- Basic -->
+                <ng-container *ngIf="item.type === 'basic'">
+                    <ancode-navigation-basic-item
+                        [item]="item"
+                        [name]="name"></ancode-navigation-basic-item>
+                </ng-container>
+
+                <!-- Collapsable -->
+                <ng-container *ngIf="item.type === 'collapsable'">
+                    <ancode-navigation-collapsable-item
+                        [item]="item"
+                        [name]="name"
+                        [autoCollapse]="autoCollapse"></ancode-navigation-collapsable-item>
+                </ng-container>
+
+                <!-- Divider -->
+                <ng-container *ngIf="item.type === 'divider'">
+                    <ancode-navigation-divider-item
+                        [item]="item"
+                        [name]="name"></ancode-navigation-divider-item>
+                </ng-container>
+
+                <!-- Group -->
+                <ng-container *ngIf="item.type === 'group'">
+                    <ancode-navigation-group-item
+                        [item]="item"
+                        [name]="name"
+                        [autoCollapse]="autoCollapse"></ancode-navigation-group-item>
+                </ng-container>
+
+                <!-- Spacer -->
+                <ng-container *ngIf="item.type === 'spacer'">
+                    <ancode-navigation-spacer-item
+                        [item]="item"
+                        [name]="name"></ancode-navigation-spacer-item>
+                </ng-container>
+
+            </ng-container>
+
+        </ng-container>
+
+        <!-- Content footer -->
+        <div class="ancode-navigation-content-footer">
+            <ng-content select="[ancodeNavigationContentFooter]"></ng-content>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="ancode-navigation-footer">
+        <ng-content select="[ancodeNavigationFooter]"></ng-content>
+    </div>
+
+</div>
+

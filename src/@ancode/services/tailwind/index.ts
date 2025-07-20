@@ -1,0 +1,1 @@
+export * from '@ancode/services/tailwind/public-api';
